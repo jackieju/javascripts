@@ -1,3 +1,20 @@
+function adjustFont(target, factor){
+	var factor = factor || 1;
+	
+	var size;
+	 t = $(target);
+	var desired_width = t.width();
+	var resizer = $("#hidden-resizer");
+	html = $(target).html();
+	resizer.html(html);
+
+	while(resizer.width() > desired_width) {
+	  size = parseInt(resizer.css("font-size"), 10);
+	  resizer.css("font-size", size - 1*factor);
+	}
+
+	t.css("font-size", size);//.html(html);
+}
 function evalJs(data){
 
 	re = /<script[\s\S]*?>([\s\S]*)<\/script>/i; // multi line must use [\s\S]* instead of .*
@@ -136,7 +153,7 @@ function inspect(obj) {
 function getUrlQueryString(name)
 {
 
-	//alert(name);
+	// alert(name);
 
 	 // alert("qs="+location.href);
     // 如果链接没有参数，或者链接中不存在我们要获取的参数，直接返回空
@@ -324,9 +341,13 @@ Array.prototype.remove=function(obj){
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
+// alert(ca.length);
     for(var i=0; i<ca.length; i++) {
+
         var c = ca[i];
+
         while (c.charAt(0)==' ') c = c.substring(1);
+		// alert("c="+c+"-"+c.indexOf(name));
         if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
     }
     return "";
